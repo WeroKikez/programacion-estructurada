@@ -10,10 +10,15 @@ const float porc_presta = .10;
 
 int main(int argc, char *argv[]) {
 	float paga, prestaciones, deducciones, sueldo_hora;
-	int puesto, horas_laboradas, horas_normales, horas_extras = 0, horas_triples = 0;
+	int puesto, horas_laboradas, horas_normales, horas_extras = 0, horas_triples = 0, horas_bono = 0;
 
     printf("\nIntroduce las horas laboradas: ");
     scanf("%d", &horas_laboradas);
+
+    if(horas_laboradas <= 0 || horas_laboradas > 60) {
+        printf("Error: cantidad de horas no válida");
+        return 1;
+    }
 	
 	printf("\n");
 	printf("\t1. Profesor\n");
@@ -41,6 +46,7 @@ int main(int argc, char *argv[]) {
 		default:
 			printf("\n-------------------------------\n");
 			printf("Error: Seleccion fuera de rango");
+            return 1;
 	}
     
     // Trabajo horas normales
@@ -74,7 +80,14 @@ int main(int argc, char *argv[]) {
 
     // Mostrando sueldo antes de prestaciones y deducciones
     printf("Sueldo Base: $%.2f \n", paga);
-    
+
+    // Calculo de horas bono
+    if(horas_laboradas > 30)
+        horas_bono = horas_laboradas - 30;
+    paga += horas_bono * bono;
+    printf("Horas Bonificadas ($25 c/u): %d horas \n", horas_bono);
+    printf("Sueldo despues de Bonificacion: $%.2f \n", paga);
+
     // Calculo de prestaciones 
     prestaciones = paga * porc_presta;
     paga += prestaciones;
