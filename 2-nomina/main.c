@@ -5,6 +5,9 @@ const float sueldo_prof = 200;
 const float sueldo_secr = 100;
 const float sueldo_mozo = 50;
 
+const float sueldo_mens = 20;
+const float seguro_mens = 100;
+
 const float bono = 25;
 const float porc_presta = .10;
 
@@ -17,13 +20,13 @@ int main(int argc, char *argv[]) {
 
     if(horas_laboradas <= 0 || horas_laboradas > 60) {
         printf("Error: cantidad de horas no válida");
-        return 1;
     }
 	
 	printf("\n");
 	printf("\t1. Profesor\n");
 	printf("\t2. Secretaria\n");
 	printf("\t3. Mozo\n");
+	printf("\t4. Mensajero\n");
 	
 	printf("\nSelecciona tu puesto: ");
 	scanf("%d", &puesto);
@@ -43,10 +46,13 @@ int main(int argc, char *argv[]) {
 			printf("\nPuesto: Mozo\n");
             sueldo_hora = sueldo_mozo;
 			break;
+        case 4:
+			printf("\nPuesto: Mensajero\n");
+			sueldo_hora = sueldo_mens;
+			break;
 		default:
 			printf("\n-------------------------------\n");
 			printf("Error: Seleccion fuera de rango");
-            return 1;
 	}
     
     // Trabajo horas normales
@@ -99,19 +105,25 @@ int main(int argc, char *argv[]) {
 
     
     if(paga < 1000) {
-        deducciones = paga * .8;
+        deducciones = paga * .08;
         printf("8%c): $%.2f \n", 37, deducciones);
     }
-    else if (paga > 1000 && paga < 1500) {
-        deducciones = paga * .12;		
-        printf("12%c): $%.2f \n", 37, deducciones);
-    }
-    else {
-        deducciones = paga * .15;	
-        printf("15%c): $%.2f \n", 37, deducciones);
+        else if (paga > 1000 && paga < 1500) {
+                deducciones = paga * .12;		
+                printf("12%c): $%.2f \n", 37, deducciones);
+            }
+                else {
+                    deducciones = paga * .15;	
+                    printf("15%c): $%.2f \n", 37, deducciones);
     }
 
     paga -= deducciones;
+
+    // Si es mensajero, agregamos su seguro
+    if(puesto == 4) {
+    	printf("Seguro de mensajero: $%.2f \n", seguro_mens);
+    	paga += seguro_mens;	
+	}
     
     // Mostrando el sueldo final
     printf("Sueldo final: $%.2f \n", paga);
