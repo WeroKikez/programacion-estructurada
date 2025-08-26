@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[]) {
 	int numero, residuo, centenas, decenas, unidades;
-	int impr_unidad = 1;
+	int impr_unidad = 1;  // Para casos especiales donde se usa una sola palabra para decenas y unidades, tales como (11, 12 ,13, 14 y 15)
 	
 	printf("Ingrese un numero entre 1 y 999: ");
 	scanf("%d", &numero);
@@ -82,30 +82,36 @@ int main(int argc, char *argv[]) {
 			}
 			break;
 		case 2:
-			printf("veinti");
+			if(unidades == 0)
+				printf("veinte");
+			else
+				printf("veinti");
 			break; 
 		case 3:
-			printf("treinta y ");
+			printf("treinta");
 			break;
 		case 4:
-			printf("cuarenta y ");
+			printf("cuarenta");
 			break; 
 		case 5:
-			printf("ciencuenta y ");
+			printf("ciencuenta");
 			break; 
 		case 6:
-			printf("sesenta y ");
+			printf("sesenta");
 			break; 
 		case 7:
-			printf("setenta y ");
+			printf("setenta");
 			break; 
 		case 8:
-			printf("ochenta y ");
+			printf("ochenta");
 			break; 
 		case 9:
-			printf("noventa y ");
+			printf("noventa");
 			break; 
 	}
+
+	if(decenas > 2 && unidades != 0)
+		printf(" y ");
 
 	if(impr_unidad) {
 		switch(unidades) {
