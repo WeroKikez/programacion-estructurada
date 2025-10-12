@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <time.h>
 
+// Mosificar programa 14 agregando funciones
+
 int main(void) {
   int nums_alea[10];
   float res_suma = 0, res_prom = 0;
@@ -11,10 +13,7 @@ int main(void) {
   // Semilla para numeros aleatorios
   srand(time(NULL));
 
-  // Generar un arreglo de numeros aleatorios
-  for(i = 0; i < 10; i++) {
-    nums_alea[i] = (rand() % 10 + 1);
-  }
+  generar_arreglo(nums_alea);
 
   // 1. Mostrar los elementos del arreglo
   for(i = 0; i < 10; i++) {
@@ -52,4 +51,13 @@ int main(void) {
 
   printf("\n");
   return 0;
+}
+
+void generar_arreglo(int arr[10]) {
+  int i;
+
+  // Generar un arreglo de numeros aleatorios
+  for(i = 0; i < 10; i++) {
+    arr[i] = (rand() % 10 + 1);
+  }
 }
