@@ -2,62 +2,107 @@
 #include <stdio.h>
 #include <time.h>
 
+#define CANTIDAD_ELEMENTOS 10
+
 // Mosificar programa 14 agregando funciones
 
-int main(void) {
-  int nums_alea[10];
-  float res_suma = 0, res_prom = 0;
-  int num_bus, pos_res_bus;
-  int i;
+// Declarar las funciones
+void generar_arreglo(int arr[CANTIDAD_ELEMENTOS]);
+void mostrar_arreglo(int arr[CANTIDAD_ELEMENTOS]);
+int sumar_elementos(int arr[CANTIDAD_ELEMENTOS]);
+float promedio_elementos(int arr[CANTIDAD_ELEMENTOS]);
+void mostrar_pares(int arr[CANTIDAD_ELEMENTOS]);
+void buscar_numero(int arr[CANTIDAD_ELEMENTOS]);
 
-  // Semilla para numeros aleatorios
+int main(void) {
+  int nums_alea[CANTIDAD_ELEMENTOS];
+ // Semilla para numeros aleatorios
   srand(time(NULL));
 
   generar_arreglo(nums_alea);
 
+  mostrar_arreglo(nums_alea);
+
+  printf("La Suma es: %d\n", sumar_elementos(nums_alea));
+
+  printf("El Promedio es: %.1f\n", promedio_elementos(nums_alea));
+
+  mostrar_pares(nums_alea);
+
+  buscar_numero(nums_alea);
+
+  printf("\n"); 
+  return 0;
+} 
+
+void generar_arreglo(int arr[CANTIDAD_ELEMENTOS]) {
+  int i;
+
+  // Asignar numeros aleatorios al arreglo
+  for(i = 0; i < CANTIDAD_ELEMENTOS; i++) {
+    arr[i] = (rand() % CANTIDAD_ELEMENTOS + 1);
+  }
+}
+
+void mostrar_arreglo(int arr[CANTIDAD_ELEMENTOS]) {
+  int i;
+
   // 1. Mostrar los elementos del arreglo
-  for(i = 0; i < 10; i++) {
-    printf("%d ", nums_alea[i]);
+  for(i = 0; i < CANTIDAD_ELEMENTOS; i++) {
+    printf("%d ", arr[i]);
   }
   printf("\n");
+}
+
+int sumar_elementos(int arr[CANTIDAD_ELEMENTOS]) {
+  int i, res_suma = 0;
 
   // 2. Sumar los elementos y mostrar el resultado
-  for(int i = 0; i < 10; i++) {
-    res_suma += nums_alea[i];
+  for(int i = 0; i < CANTIDAD_ELEMENTOS; i++) {
+    res_suma += arr[i];
   }
-  printf("Suma Elementos: %.0f \n", res_suma);
+  return res_suma;
+}
 
+float promedio_elementos(int arr[CANTIDAD_ELEMENTOS]) {
+  float res_suma = sumar_elementos(arr), res_prom = 0;
+  
   // 3. Mostar el promedio
-  res_prom = (res_suma / 10);
-  printf("Promedio Elementos: %.1f \n", res_prom);
+  res_prom = (res_suma / CANTIDAD_ELEMENTOS);
+  return res_prom;
+}
 
+void mostrar_pares(int arr[CANTIDAD_ELEMENTOS]) {
+  int i;
+  
   // 4. Mostrar los numeros pares y la posición en que se encuentran
   printf("Numeros Pares y Su Posición: \n");
-  for(i = 0; i < 10; i++) { 
-    if(nums_alea[i] % 2 == 0) {
-      printf("%d --> %d \n", nums_alea[i], i);
+  for(i = 0; i < CANTIDAD_ELEMENTOS; i++) { 
+    if(arr[i] % 2 == 0) {
+      printf("%d --> %d \n", arr[i], i);
     }
   }
   printf("\n");
+}
 
+void buscar_numero(int arr[CANTIDAD_ELEMENTOS]) {
+  int i, num_bus, encontrado;
+  
   // 4. Buscar un numero y decir en que posicion se encuentra
   printf("Numero a buscar: ");
   scanf("%d", &num_bus);
 
-  for(i = 0; i < 10; i++) {
-    if(num_bus == nums_alea[i])
-      printf("El numero se encuentra en la posicion: %d \n", i);
+  i = 0;
+  encontrado = 0;
+
+  while(encontrado == 0 && i < CANTIDAD_ELEMENTOS) {
+    if(arr[i] == num_bus)
+      encontrado = 1;
+    i++;
   }
 
-  printf("\n");
-  return 0;
-}
-
-void generar_arreglo(int arr[10]) {
-  int i;
-
-  // Generar un arreglo de numeros aleatorios
-  for(i = 0; i < 10; i++) {
-    arr[i] = (rand() % 10 + 1);
-  }
+  if(encontrado != 0)
+    printf("Numero %d encontrado en la posicion: %d\n", num_bus, i - 1);
+  else
+    printf("El Numero %d no esta en el arreglo\n", num_bus);
 }
